@@ -2,7 +2,7 @@ import time
 from utils import random_int_list
 
 def partition(array, low, high):
-    pass
+     pass
 
 def quicksort(array, low, high):
     if low < high:
