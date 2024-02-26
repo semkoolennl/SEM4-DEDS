@@ -18,15 +18,8 @@ def bubble_sort(arr):
 			return
 
 
-arr = random_int_list(40)
-print(arr, '\n')
-bubble_sort(arr)
-print('\n', arr, '\n')
-
-"""
 def test():
     # Test performance
-    bubble_sort(random_int_list(40))
+    bubble_sort(random_int_list(1000))
 
 print_average_execution_time(test)
-"""

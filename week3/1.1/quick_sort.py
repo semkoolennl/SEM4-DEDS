@@ -33,7 +33,7 @@ def quicksort(array):
     quicksort_rec(array, 0, len(array) - 1)
 
 def exec():
-    array = random_int_list(10_000)
+    array = random_int_list(1_000)
     quicksort(array)
 
 print_average_execution_time(exec)
