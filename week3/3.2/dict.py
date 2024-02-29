@@ -22,3 +22,16 @@ if 'gewicht' in mijn_dict:
     print("Gewicht:", mijn_dict['gewicht'])
 else:
     print("Gewicht is niet beschikbaar in de dictionary.")
+
+data = [
+    {'naam': 'Alice', 'leeftijd': 25},
+    {'naam': 'Bob', 'leeftijd': 30},
+    {'naam': 'Charlie', 'leeftijd': 20}
+]
+
+# Sorteer de lijst van dictionaries op basis van leeftijd
+gesorteerde_data = sorted(data, key=lambda x: x['leeftijd'])
+
+# Toon de gesorteerde lijst
+print(gesorteerde_data)
+
