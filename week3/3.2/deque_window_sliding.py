@@ -12,7 +12,7 @@ def sliding_window_max(nums, k):
         # Verwijder alle elementen die kleiner zijn dan het huidige element
         while dq and nums[dq[-1]] < num:
             dq.pop()
-            
+
         dq.append(i)
 
         # Voeg het maximale element in het huidige venster toe aan het resultaat
@@ -24,6 +24,7 @@ def sliding_window_max(nums, k):
 # Voorbeeldgebruik
 nums = [4, 2, 1, 7, 8, 1, 2, 8, 10]
 k = 3
-# [4, 7, 8, 8, 8, 8, 10]
 result = sliding_window_max(nums, k)
+
+# [4, 7, 8, 8, 8, 8, 10]
 print(result)
