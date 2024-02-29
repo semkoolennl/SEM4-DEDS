@@ -21,9 +21,8 @@ def determine_highest_frequency(frequency_dict):
             highest_number = number
     return highest_number, highest_frequency
 
-def main():
-    int_list = random_int_list(1000, 0, 100)
-    frequency_dict = count_frequencies(int_list)
-    highest_number, highest_frequency = determine_highest_frequency(frequency_dict)
-    print(f"The number {highest_number} occurs {highest_frequency} times in the list.")
 
+int_list = random_int_list(1000, 0, 100)
+frequency_dict = count_frequencies(int_list)
+highest_number, highest_frequency = determine_highest_frequency(frequency_dict)
+print(f"The number {highest_number} occurs {highest_frequency} times in the list.")
