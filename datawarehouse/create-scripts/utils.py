@@ -24,8 +24,8 @@ def print_columns(frame: pd.DataFrame):
     for col in frame.columns:
         print(col)
 
-def load_csv(filename):
-    data = pd.read_csv(filename)
+def load_csv(filename, usecols=None):
+    data = pd.read_csv(filename, usecols=usecols)
     return data
 
 def load_csv_table(data, table_name):
