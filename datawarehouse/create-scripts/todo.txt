@@ -1,0 +1,17 @@
+training - DONE
+satisfaction - DONE
+satisfaction_type - DONE
+course - DONE
+date - DONE
+order - DONE
+product_forecast - DONE
+returned_item - DONE
+sales_demographic - DONE
+year_month - DONE
+
+inventory_levels - NOT DONE
+product - NOT DONE
+retailer_contact - NOT DONE
+retailer - NOT DONE
+sales_branch - NOT DONE
+sales_target_data - NOT DONE
