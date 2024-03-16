@@ -10,7 +10,7 @@ services:
     ports:
       - "1433:1433"
     volumes:
-      - ./sqlpreview:/var/opt/mssql
+      - sqlpreview:/var/opt/mssql
 
 volumes:
   sqlpreview:
