@@ -1,7 +1,14 @@
 import pandas as pd
 import sqlite3
 
+def assertFileExists(path):
+    try:
+        open(path, 'r')
+    except FileNotFoundError:
+        raise FileNotFoundError(f"File '{path}' not found.")
+    
 def load_db(path):
+    assertFileExists(path)
     conn = sqlite3.connect(path)
     return conn
 
@@ -25,6 +32,7 @@ def print_columns(frame: pd.DataFrame):
         print(col)
 
 def load_csv(filename, usecols=None):
+    assertFileExists(filename)
     data = pd.read_csv(filename, usecols=usecols)
     return data
 
