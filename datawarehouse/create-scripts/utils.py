@@ -23,3 +23,14 @@ def load_table(conn, table):
 def print_columns(frame: pd.DataFrame):
     for col in frame.columns:
         print(col)
+
+def load_csv(filename):
+    data = pd.read_csv(filename)
+    return data
+
+def load_csv_table(data, table_name):
+    if table_name in data:
+        return data[table_name]
+    else:
+        print(f"Table '{table_name}' not found in the DataFrame.")
+        return None
