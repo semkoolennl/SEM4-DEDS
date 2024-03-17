@@ -67,9 +67,6 @@ product = product[[
 order = pd.merge(order_details, order_header, left_on='ORDER_DETAILS_ORDER_NUMBER', right_on='ORDER_HEADER_ORDER_NUMBER').drop('ORDER_DETAILS_ORDER_NUMBER', axis=1)
 order = pd.merge(order, product, left_on='ORDER_DETAILS_PRODUCT_NUMBER', right_on='PRODUCT_PRODUCT_NUMBER').drop('ORDER_DETAILS_PRODUCT_NUMBER', axis=1)
 
-print_columns(order)
-
-
 # Rename columns
 # ORDER_HEADER_ORDER_METHOD_CODE -> ORDER_METHOD_CODE
 # ORDER_HEADER_RETAILER_SITE_CODE -> RETAILER_SITE_CODE
@@ -81,7 +78,6 @@ order = order.rename(columns={
     'ORDER_HEADER_SALES_STAFF_CODE': 'SALES_STAFF_CODE',
     'ORDER_HEADER_SALES_BRANCH_CODE': 'SALES_BRANCH_CODE',
 })
-
 
 # Transform colums to the right type
 order['ORDER_DETAILS_UNIT_COST'] = order['ORDER_DETAILS_UNIT_COST'].astype(float)
@@ -100,4 +96,4 @@ order['ORDER_PROFITABILITY_INDEX'] = order['PRODUCT_MARGIN'] / order['PRODUCT_PR
 order['ORDER_CVP_RATIO'] = (order['ORDER_DETAILS_UNIT_SALE_PRICE'] - order['ORDER_DETAILS_UNIT_COST']) / order['ORDER_DETAILS_UNIT_SALE_PRICE']
 order['ORDER_SALES_EFFICIENCY'] = order['ORDER_DETAILS_UNIT_SALE_PRICE'] / order['PRODUCT_PRODUCTION_COST']
 
-print(order)
+result = order

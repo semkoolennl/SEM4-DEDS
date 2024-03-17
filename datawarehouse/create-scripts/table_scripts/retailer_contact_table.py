@@ -22,4 +22,3 @@ go_crm = load_db('source/go_crm.sqlite')
 
 retailer_contact = load_table(go_crm, 'RETAILER_CONTACT')
 result = retailer_contact
-print(result)

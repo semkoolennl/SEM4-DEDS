@@ -50,5 +50,3 @@ result = result.rename(columns={
     'SALES_BRANCH_SALES_BRANCH_CODE': 'SALES_BRANCH_CODE',
     'SALES_STAFF_SALES_STAFF_CODE': 'SALES_STAFF_CODE',
 })
-
-print(result)

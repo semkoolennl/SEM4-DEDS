@@ -14,4 +14,3 @@ go_staff = load_db('source/go_staff.sqlite')
 
 training = load_table(go_staff, 'TRAINING')
 result = training.drop(columns=['YEAR'])
-print(result)
