@@ -10,16 +10,18 @@ def get_scripts():
 
     # remove __init__.py * utils.py
     scripts = [script for script in scripts if script != '__init__.py' and script != 'utils.py']
-    return scripts
+
+    # remove .py extension
+    return [script.split('.')[0] for script in scripts]
 
 def get_script_content(script):
-    with open(os.path.join(TABLE_SCRIPTS_PATH, script), 'r') as file:
+    with open(os.path.join(TABLE_SCRIPTS_PATH, script) + ".py", 'r') as file:
         return file.read()
     
 def execute_get_table(script) -> pd.DataFrame:
     # make sure import of utils works
     sys.path.append(TABLE_SCRIPTS_PATH)
-    
+
     exec(get_script_content(script))
     # now call local get_table function
     return locals()['result']
