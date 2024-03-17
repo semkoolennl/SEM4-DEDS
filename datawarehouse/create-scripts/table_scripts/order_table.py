@@ -86,6 +86,13 @@ order['ORDER_DETAILS_UNIT_SALE_PRICE'] = order['ORDER_DETAILS_UNIT_SALE_PRICE'].
 order['ORDER_DETAILS_QUANTITY'] = order['ORDER_DETAILS_QUANTITY'].astype(int)
 order['PRODUCT_PRODUCTION_COST'] = order['PRODUCT_PRODUCTION_COST'].astype(float)
 order['PRODUCT_MARGIN'] = order['PRODUCT_MARGIN'].astype(float)
+order['ORDER_DETAILS_ORDER_DETAIL_CODE'] = order['ORDER_DETAILS_ORDER_DETAIL_CODE'].astype('int64')
+order['ORDER_HEADER_ORDER_NUMBER'] = order['ORDER_HEADER_ORDER_NUMBER'].astype('int64')
+order['ORDER_METHOD_CODE'] = order['ORDER_METHOD_CODE'].astype('int64')
+order['PRODUCT_PRODUCT_NUMBER'] = order['PRODUCT_PRODUCT_NUMBER'].astype('int64')
+order['RETAILER_SITE_CODE'] = order['RETAILER_SITE_CODE'].astype('int64')
+order['SALES_BRANCH_CODE'] = order['SALES_BRANCH_CODE'].astype('int64')
+order['SALES_STAFF_CODE'] = order['SALES_STAFF_CODE'].astype('int64')
 
 # Add new calculated columns
 # ORDER_PROFITABILITY_INDEX = PRODUCT_MARGIN / PRODUCT_PRODUCTION_COST

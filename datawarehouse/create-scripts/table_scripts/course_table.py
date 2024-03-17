@@ -22,4 +22,8 @@ print(relative_path)
 go_staff = load_db('source/go_staff.sqlite')
 
 course = load_table(go_staff, 'COURSE')
+course['COURSE_CODE'] = course['COURSE_CODE'].astype('int64')
+course['COURSE_DESCRIPTION'] = course['COURSE_DESCRIPTION'].astype('string')
+
 result = course
+print(result)

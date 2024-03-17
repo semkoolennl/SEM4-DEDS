@@ -59,3 +59,5 @@ result = result.rename(columns={
     'PRODUCT_FORECAST_YEAR': 'YEAR_MONTH_YEAR',
     'PRODUCT_FORECAST_MONTH': 'YEAR_MONTH_MONTH'
 })
+
+print(result)

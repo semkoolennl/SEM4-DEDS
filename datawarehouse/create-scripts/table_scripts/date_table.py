@@ -35,8 +35,14 @@ returned_item_date['DATE_DATE'] = pd.to_datetime(returned_item_date['DATE_DATE']
 date = pd.concat([sales_staff_date, product_date, order_header_date, returned_item_date], ignore_index=True).drop_duplicates()
 
 # Add DATE_MONTH, DATE_QUARTER, DATE_YEAR
-date['DATE_MONTH'] = pd.to_datetime(date['DATE_DATE']).dt.month
-date['DATE_QUARTER'] = pd.to_datetime(date['DATE_DATE']).dt.quarter
-date['DATE_YEAR'] = pd.to_datetime(date['DATE_DATE']).dt.year
+date['DATE_MONTH'] = pd.to_datetime(date['DATE_DATE']).dt.month.astype('int64')
+date['DATE_QUARTER'] = pd.to_datetime(date['DATE_DATE']).dt.quarter.astype('int64')
+date['DATE_YEAR'] = pd.to_datetime(date['DATE_DATE']).dt.year.astype('int64')
+
+sales_staff_date['DATE_DATE'] = sales_staff_date['DATE_DATE'].astype('datetime64[ns]')
+product_date['DATE_DATE'] = product_date['DATE_DATE'].astype('datetime64[ns]')
+order_header_date['DATE_DATE'] = order_header_date['DATE_DATE'].astype('datetime64[ns]')
+returned_item_date['DATE_DATE'] = returned_item_date['DATE_DATE'].astype('datetime64[ns]')
+
 
 result = date

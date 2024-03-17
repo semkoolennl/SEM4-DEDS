@@ -1,7 +1,7 @@
-import os
 import pyodbc
 import pandas as pd
-import importlib
+from exportutils import *
+from table_scripts.utils import *
 
 DB = {
     'servername': 'localhost,1433',
@@ -55,5 +55,14 @@ warehouse_conn = pyodbc.connect(warehouse_conn_str)
 print(warehouse_conn)
 
 # TODO: exec all scripts, push to DB  (check if exists prior)
+
+scripts = get_scripts()
+for script in scripts:
+    print(f"Executing {script}...")
+    tablename = script.split('_table')[0]
+    dataframe = execute_get_table(script)
+    print(dataframe.dtypes)
+    print_columns(dataframe)
+
 
 warehouse_conn.close()

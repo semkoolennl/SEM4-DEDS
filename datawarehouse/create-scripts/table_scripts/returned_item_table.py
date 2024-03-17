@@ -30,10 +30,23 @@ result = result.drop(columns=['RETURNED_ITEM_ORDER_DETAIL_CODE'])
 
 # Rename foreign key columns
 result = result.rename(columns={
-    'RETURNED_ITEM_RETURN_REASON_CODE': 'RETURN_REASON__RETURN_REASON_CODE',
+    'RETURNED_ITEM_RETURN_REASON_CODE': 'RETURN_REASON_RETURN_REASON_CODE',
     'RETURNED_ITEM_RETURN_DATE': 'DATE_RETURN_DATE',
     'ORDER_DETAILS_ORDER_NUMBER': 'ORDER_HEADER_ORDER_NUMBER',
     'ORDER_DETAILS_PRODUCT_NUMBER': 'PRODUCT_PRODUCT_NUMBER'
 })
 
 result['DATE_RETURN_DATE'] = pd.to_datetime(result['DATE_RETURN_DATE'], format='%d-%m-%Y %H:%M:%S').dt.strftime('%Y-%m-%d')
+
+# transform datatypes
+result['RETURNED_ITEM_RETURN_CODE'] = result['RETURNED_ITEM_RETURN_CODE'].astype('int64')
+result['RETURNED_ITEM_RETURN_QUANTITY'] = result['RETURNED_ITEM_RETURN_QUANTITY'].astype('int64')
+result['ORDER_DETAILS_UNIT_COST'] = result['ORDER_DETAILS_UNIT_COST'].astype('float64')
+result['ORDER_DETAILS_UNIT_PRICE'] = result['ORDER_DETAILS_UNIT_PRICE'].astype('float64')
+result['ORDER_DETAILS_UNIT_SALE_PRICE'] = result['ORDER_DETAILS_UNIT_SALE_PRICE'].astype('float64')
+result['DATE_RETURN_DATE'] = result['DATE_RETURN_DATE'].astype('datetime64[ns]')
+result['ORDER_DETAILS_ORDER_DETAIL_CODE'] = result['ORDER_DETAILS_ORDER_DETAIL_CODE'].astype('int64')
+result['RETURN_REASON_RETURN_REASON_CODE'] = result['RETURN_REASON_RETURN_REASON_CODE'].astype('int64')
+result['RETURN_REASON_RETURN_REASON_CODE'] = result['RETURN_REASON_RETURN_REASON_CODE'].astype('int64')
+result['ORDER_HEADER_ORDER_NUMBER'] = result['ORDER_HEADER_ORDER_NUMBER'].astype('int64')
+result['PRODUCT_PRODUCT_NUMBER'] = result['PRODUCT_PRODUCT_NUMBER'].astype('int64')
