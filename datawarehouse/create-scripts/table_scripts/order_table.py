@@ -25,7 +25,7 @@ from utils import *
 # ORDER_METHOD_code
 
 
-go_sales = load_db('../source/go_sales.sqlite')
+go_sales = load_db('source/go_sales.sqlite')
 
 
 # Load all required tables here
