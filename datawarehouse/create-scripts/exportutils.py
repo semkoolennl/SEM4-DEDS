@@ -9,7 +9,9 @@ def get_scripts():
     scripts = os.listdir(TABLE_SCRIPTS_PATH)
 
     # remove __init__.py * utils.py
-    scripts = [script for script in scripts if script != '__init__.py' and script != 'utils.py']
+    ignore = ['__init__.py', '__pycache__', 'utils.py']
+    scripts = [script for script in scripts if script not in ignore]
+
 
     # remove .py extension
     return [script.split('.')[0] for script in scripts]
