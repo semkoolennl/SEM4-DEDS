@@ -23,6 +23,3 @@ go_staff = load_db('source/go_staff.sqlite')
 
 course = load_table(go_staff, 'COURSE')
 result = course
-print(result)
-
-

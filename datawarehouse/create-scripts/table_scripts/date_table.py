@@ -38,6 +38,5 @@ date = pd.concat([sales_staff_date, product_date, order_header_date, returned_it
 date['DATE_MONTH'] = pd.to_datetime(date['DATE_DATE']).dt.month
 date['DATE_QUARTER'] = pd.to_datetime(date['DATE_DATE']).dt.quarter
 date['DATE_YEAR'] = pd.to_datetime(date['DATE_DATE']).dt.year
-print(date)
 
-
+result = date

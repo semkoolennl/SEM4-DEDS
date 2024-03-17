@@ -9,7 +9,7 @@ from utils import *
 # SATISFACTION_TYPE_DESCRIPTION
 
 
-go_staff = load_db('../source/go_staff.sqlite')
+go_staff = load_db('source/go_staff.sqlite')
 
 
 satisfaction_type = load_table(go_staff, 'SATISFACTION_TYPE')

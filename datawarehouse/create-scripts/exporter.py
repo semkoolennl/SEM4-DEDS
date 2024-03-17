@@ -1,5 +1,7 @@
+import os
 import pyodbc
 import pandas as pd
+import importlib
 
 DB = {
     'servername': 'localhost,1433',
@@ -52,8 +54,23 @@ warehouse_conn_str = (
 warehouse_conn = pyodbc.connect(warehouse_conn_str)
 print(warehouse_conn)
 
-# push all result dataframes to database here
-
-
 
 warehouse_conn.close()
+
+modulleeee = 'test'
+module = importlib.import_module(modulleeee)
+print(module)
+
+
+module_folder = 'datawarehouse/create-scripts/table_scripts'
+
+# List all Python files in the folder
+module_names = [file_name[:-3] for file_name in os.listdir(module_folder) if file_name.endswith('.py')]
+print(module_names)
+
+for module_name in module_names:
+    try:
+        print(f"{module_folder}.{module_name}")
+        # module = importlib.import_module(f"{module_folder}.{module_name}")
+    except ImportError:
+        print('couldnt import')

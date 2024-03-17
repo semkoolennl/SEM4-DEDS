@@ -20,8 +20,8 @@ from utils import *
 # RETAILER_CODE
 
 
-go_sales = load_db('../source/go_sales.sqlite')
-go_crm = load_db('../source/go_crm.sqlite')
+go_sales = load_db('source/go_sales.sqlite')
+go_crm = load_db('source/go_crm.sqlite')
 
 
 sales_target_data = load_table(go_sales, 'SALES_TARGETData').add_prefix('SALES_TARGET_DATA_')
