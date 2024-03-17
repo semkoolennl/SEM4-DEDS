@@ -57,7 +57,3 @@ print(warehouse_conn)
 # TODO: exec all scripts, push to DB  (check if exists prior)
 
 warehouse_conn.close()
-
-modulleeee = 'test'
-module = importlib.import_module(modulleeee)
-print(module)
