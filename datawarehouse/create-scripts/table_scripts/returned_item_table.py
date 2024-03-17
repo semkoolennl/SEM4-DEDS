@@ -16,7 +16,7 @@ from utils import *
 # RETURN_REASON_return_reason_code
 
 
-go_sales = load_db('source/go_sales.sqlite')
+go_sales = load_db('../source/go_sales.sqlite')
 
 
 returned_item = load_table(go_sales, 'RETURNED_ITEM').add_prefix('RETURNED_ITEM_')

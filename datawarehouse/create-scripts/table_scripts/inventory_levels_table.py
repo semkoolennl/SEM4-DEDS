@@ -18,8 +18,8 @@ from utils import *
 # PRODUCT_product_number (fk uit ORDER_DETAILS)
 
 
-go_sales = load_db('source/go_sales.sqlite')
-go_crm = load_db('source/go_crm.sqlite')
+go_sales = load_db('../source/go_sales.sqlite')
+go_crm = load_db('../source/go_crm.sqlite')
 
 inventory_levels = load_csv('source/GO_SALES_INVENTORY_LEVELSData.csv', np.arange(0,4)).add_prefix('INVENTORY_LEVELS_')
 order_header = load_table(go_sales, 'ORDER_HEADER').add_prefix('ORDER_HEADER_')

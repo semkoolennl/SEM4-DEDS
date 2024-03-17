@@ -16,8 +16,8 @@ from utils import *
 # RETAILER_CONTACT_GENDER
 
 
-go_sales = load_db('source/go_sales.sqlite')
-go_crm = load_db('source/go_crm.sqlite')
+go_sales = load_db('../source/go_sales.sqlite')
+go_crm = load_db('../source/go_crm.sqlite')
 
 
 retailer_contact = load_table(go_crm, 'RETAILER_CONTACT')

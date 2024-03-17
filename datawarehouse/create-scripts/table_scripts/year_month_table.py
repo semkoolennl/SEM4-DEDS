@@ -12,7 +12,7 @@ from utils import *
 
 def get_table():
     # Load databases and tables to retrieve all the distinct values
-    go_sales = load_db('source/go_sales.sqlite')
+    go_sales = load_db('../source/go_sales.sqlite')
 
     sales_target_data = load_table(go_sales, 'SALES_TARGETData')
     product_forecast = load_csv('source/GO_SALES_PRODUCT_FORECASTData.csv')

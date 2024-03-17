@@ -30,7 +30,7 @@ from utils import *
 # SALES_TERRITORY_TERRITORY_NAME_EN
 
 
-go_crm = load_db('source/go_crm.sqlite')
+go_crm = load_db('../source/go_crm.sqlite')
 
 
 retailer_heaquarters = load_table(go_crm, 'retailer_headquarters').add_prefix('RETAILER_HEADQUARTERS_')

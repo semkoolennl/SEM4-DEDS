@@ -10,8 +10,8 @@ from utils import *
 # DATE_YEAR
 
 # Load databases
-go_staff = load_db('source/go_staff.sqlite')
-go_sales = load_db('source/go_sales.sqlite')
+go_staff = load_db('../source/go_staff.sqlite')
+go_sales = load_db('../source/go_sales.sqlite')
 
 # Load tables
 sales_staff = load_table(go_staff, 'SALES_STAFF')[['DATE_HIRED']]

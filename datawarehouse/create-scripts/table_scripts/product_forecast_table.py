@@ -16,11 +16,11 @@ from utils import *
 # PRODUCT_PRODUCT_NUMBER
 
 
-go_sales = load_db('source/go_sales.sqlite')
+go_sales = load_db('../source/go_sales.sqlite')
 
 
-product_forecast = load_csv('source/GO_SALES_PRODUCT_FORECASTData.csv')
-inventory_levels = load_csv('source/GO_SALES_INVENTORY_LEVELSData.csv', np.arange(0,4))
+product_forecast = load_csv('../source/GO_SALES_PRODUCT_FORECASTData.csv')
+inventory_levels = load_csv('../source/GO_SALES_INVENTORY_LEVELSData.csv', np.arange(0,4))
 product = load_table(go_sales, 'PRODUCT')
 
 
