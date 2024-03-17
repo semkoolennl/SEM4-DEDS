@@ -37,5 +37,3 @@ result = result.rename(columns={
 })
 
 result['DATE_RETURN_DATE'] = pd.to_datetime(result['DATE_RETURN_DATE'], format='%d-%m-%Y %H:%M:%S').dt.strftime('%Y-%m-%d')
-
-print(result)

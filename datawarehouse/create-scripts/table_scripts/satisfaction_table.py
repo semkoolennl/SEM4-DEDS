@@ -15,6 +15,3 @@ go_staff = load_db('source/go_staff.sqlite')
 
 satisfaction = load_table(go_staff, 'SATISFACTION')
 result = satisfaction
-print(result)
-
-

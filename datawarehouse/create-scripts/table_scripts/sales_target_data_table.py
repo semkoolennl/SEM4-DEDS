@@ -115,5 +115,3 @@ result = result.rename(columns={
 
 result['YEAR_MONTH_YEAR'] = result['YEAR_MONTH_YEAR'].astype(int)
 result['YEAR_MONTH_MONTH'] = result['YEAR_MONTH_MONTH'].astype(int)
-
-print(result)

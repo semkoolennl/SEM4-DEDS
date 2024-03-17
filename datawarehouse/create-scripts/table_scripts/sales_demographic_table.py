@@ -61,5 +61,3 @@ result = pd.merge(
 result = pd.merge(
     result, sales_territory, left_on='RETAILER_COUNTRY_SALES_TERRITORY_CODE', right_on='SALES_TERRITORY_SALES_TERRITORY_CODE'
     ).drop(columns='RETAILER_COUNTRY_SALES_TERRITORY_CODE')
-
-print(result)
