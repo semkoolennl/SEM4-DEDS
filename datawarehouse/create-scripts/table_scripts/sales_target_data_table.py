@@ -1,7 +1,5 @@
-
 import pandas as pd
 from utils import *
-
 
 # -- SALES_TARGET_DATA doeltabel --
 
@@ -19,32 +17,31 @@ from utils import *
 # PRODUCT_NUMBER
 # RETAILER_CODE
 
-
 go_sales = load_db('source/go_sales.sqlite')
 go_crm = load_db('source/go_crm.sqlite')
-
+go_staff = load_db('source/go_staff.sqlite')
 
 sales_target_data = load_table(go_sales, 'SALES_TARGETData').add_prefix('SALES_TARGET_DATA_')
 order_header = load_table(go_sales, 'ORDER_HEADER').add_prefix('ORDER_HEADER_')
 order_details = load_table(go_sales, 'ORDER_DETAILS').add_prefix('ORDER_DETAILS_')
-sales_staff = load_table(go_sales, 'SALES_STAFF').add_prefix('SALES_STAFF_')
-sales_branch = load_table(go_sales, 'SALES_BRANCH').add_prefix('SALES_BRANCH_')
+sales_staff = load_table(go_staff, 'SALES_STAFF').add_prefix('SALES_STAFF_')
+sales_branch = load_table(go_staff, 'SALES_BRANCH').add_prefix('SALES_BRANCH_')
 product = load_table(go_sales, 'PRODUCT').add_prefix('PRODUCT_')
 
+sales_target_data = sales_target_data.merge(sales_staff, left_on='SALES_TARGET_DATA_SALES_STAFF_CODE', right_on='SALES_STAFF_SALES_STAFF_CODE', how='left')
 
 # Aggregate order
 order = order_details.merge(order_header, left_on='ORDER_DETAILS_ORDER_NUMBER', right_on='ORDER_HEADER_ORDER_NUMBER')
-order = order.merge(sales_staff, left_on='ORDER_HEADER_SALES_STAFF_CODE', right_on='SALES_STAFF_SALES_STAFF_CODE', how='left')
-order
-
 order['ORDER_HEADER_ORDER_DATE'] = pd.to_datetime(order['ORDER_HEADER_ORDER_DATE'])
 order['YEAR_MONTH_YEAR'] = order['ORDER_HEADER_ORDER_DATE'].dt.year.astype(int)
 order['YEAR_MONTH_MONTH'] = order['ORDER_HEADER_ORDER_DATE'].dt.month.astype(int)
 order['ORDER_DETAILS_PRODUCT_NUMBER'] = order['ORDER_DETAILS_PRODUCT_NUMBER'].astype(int)
+order
+
 
 # Remove original date columns
 order = order.drop(columns=['ORDER_HEADER_ORDER_DATE', 'ORDER_HEADER_ORDER_NUMBER', 'ORDER_DETAILS_ORDER_DETAIL_CODE'])
-order = order[['ORDER_DETAILS_PRODUCT_NUMBER', 'ORDER_DETAILS_QUANTITY', 'ORDER_DETAILS_UNIT_COST', 'ORDER_DETAILS_UNIT_PRICE', 'ORDER_DETAILS_UNIT_SALE_PRICE', 'YEAR_MONTH_YEAR', 'YEAR_MONTH_MONTH', 'SALES_STAFF_SALES_STAFF_CODE', 'SALES_STAFF_SALES_BRANCH_CODE']]
+order = order[['ORDER_DETAILS_PRODUCT_NUMBER', 'ORDER_HEADER_SALES_STAFF_CODE', 'ORDER_DETAILS_QUANTITY', 'ORDER_DETAILS_UNIT_COST', 'ORDER_DETAILS_UNIT_PRICE', 'ORDER_DETAILS_UNIT_SALE_PRICE', 'YEAR_MONTH_YEAR', 'YEAR_MONTH_MONTH']]
 
 order['ORDER_DETAILS_QUANTITY'] = order['ORDER_DETAILS_QUANTITY'].astype(int)
 order['ORDER_DETAILS_UNIT_COST'] = order['ORDER_DETAILS_UNIT_COST'].astype(float)
@@ -60,7 +57,7 @@ order['ORDER_DETAILS_TOTAL_SALE_PRICE'] = order['ORDER_DETAILS_QUANTITY'] * orde
 order = order.drop(columns=['ORDER_DETAILS_UNIT_COST', 'ORDER_DETAILS_UNIT_PRICE', 'ORDER_DETAILS_UNIT_SALE_PRICE'])
 
 # Aggregate order
-order = order.groupby(['SALES_STAFF_SALES_STAFF_CODE', 'ORDER_DETAILS_PRODUCT_NUMBER', 'SALES_STAFF_SALES_BRANCH_CODE', 'YEAR_MONTH_YEAR', 'YEAR_MONTH_MONTH']).agg(
+order = order.groupby(['ORDER_HEADER_SALES_STAFF_CODE', 'ORDER_DETAILS_PRODUCT_NUMBER', 'YEAR_MONTH_YEAR', 'YEAR_MONTH_MONTH']).agg(
     ORDER_DETAILS_TOTAL_COST=('ORDER_DETAILS_TOTAL_COST', 'sum'),
     ORDER_DETAILS_TOTAL_PRICE=('ORDER_DETAILS_TOTAL_PRICE', 'sum'),
     ORDER_DETAILS_TOTAL_SALE_PRICE=('ORDER_DETAILS_TOTAL_SALE_PRICE', 'sum'),
@@ -70,6 +67,8 @@ order = order.groupby(['SALES_STAFF_SALES_STAFF_CODE', 'ORDER_DETAILS_PRODUCT_NU
 order['ORDER_DETAILS_QUANTITY'] = order['ORDER_DETAILS_QUANTITY'].astype(int)
 order['YEAR_MONTH_YEAR'] = order['YEAR_MONTH_YEAR'].astype(int)
 order['YEAR_MONTH_MONTH'] = order['YEAR_MONTH_MONTH'].astype(int)
+order
+
 
 # Merge with sales_target_data
 sales_target_data['SALES_TARGET_DATA_SALES_YEAR'] = sales_target_data['SALES_TARGET_DATA_SALES_YEAR'].astype(int)
@@ -77,7 +76,10 @@ sales_target_data['SALES_TARGET_DATA_SALES_PERIOD'] = sales_target_data['SALES_T
 sales_target_data['SALES_TARGET_DATA_PRODUCT_NUMBER'] = sales_target_data['SALES_TARGET_DATA_PRODUCT_NUMBER'].astype(int)
 sales_target_data['SALES_TARGET_DATA_SALES_TARGET'] = sales_target_data['SALES_TARGET_DATA_SALES_TARGET'].astype(int)
 
-result = sales_target_data.merge(order, left_on=['SALES_TARGET_DATA_SALES_STAFF_CODE', 'SALES_TARGET_DATA_PRODUCT_NUMBER', 'SALES_TARGET_DATA_SALES_YEAR', 'SALES_TARGET_DATA_SALES_PERIOD'], right_on=['SALES_STAFF_SALES_STAFF_CODE', 'ORDER_DETAILS_PRODUCT_NUMBER', 'YEAR_MONTH_YEAR', 'YEAR_MONTH_MONTH'], how='left')
+
+result = sales_target_data.merge(order, left_on=['SALES_TARGET_DATA_SALES_STAFF_CODE', 'SALES_TARGET_DATA_PRODUCT_NUMBER', 'SALES_TARGET_DATA_SALES_YEAR', 'SALES_TARGET_DATA_SALES_PERIOD'], right_on=['ORDER_HEADER_SALES_STAFF_CODE', 'ORDER_DETAILS_PRODUCT_NUMBER', 'YEAR_MONTH_YEAR', 'YEAR_MONTH_MONTH'], how='left')
+result
+
 
 # Cleanup duplicate columns
 result = result[[
@@ -115,3 +117,6 @@ result = result.rename(columns={
 
 result['YEAR_MONTH_YEAR'] = result['YEAR_MONTH_YEAR'].astype(int)
 result['YEAR_MONTH_MONTH'] = result['YEAR_MONTH_MONTH'].astype(int)
+result['SALES_STAFF_CODE'] = result['SALES_STAFF_CODE'].astype(int)
+result['SALES_BRANCH_CODE'] = result['SALES_BRANCH_CODE'].astype(int)
+result['SALES_TARGET_DATA_RETAILER_CODE'] = result['SALES_TARGET_DATA_RETAILER_CODE'].astype(int)

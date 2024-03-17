@@ -14,3 +14,6 @@ go_staff = load_db('source/go_staff.sqlite')
 
 satisfaction_type = load_table(go_staff, 'SATISFACTION_TYPE')
 result = satisfaction_type
+
+result['SATISFACTION_TYPE_CODE'] = result['SATISFACTION_TYPE_CODE'].astype('int')
+result['SATISFACTION_TYPE_DESCRIPTION'] = result['SATISFACTION_TYPE_DESCRIPTION'].astype('string')

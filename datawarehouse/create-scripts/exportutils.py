@@ -14,7 +14,7 @@ def get_scripts():
 
 
     # remove .py extension
-    return [script.split('.')[0] for script in scripts]
+    return sorted([script.split('.')[0] for script in scripts])
 
 def get_script_content(script):
     with open(os.path.join(TABLE_SCRIPTS_PATH, script) + ".py", 'r') as file:
