@@ -19,10 +19,10 @@ current_directory = os.getcwd()
 relative_path = os.path.relpath(current_file_path, current_directory)
 print(relative_path)
 
-# go_staff = load_db('create-scripts/source/go_staff.sqlite')
+go_staff = load_db('source/go_staff.sqlite')
 
-# course = load_table(go_staff, 'COURSE')
-# result = course
-# print(result)
+course = load_table(go_staff, 'COURSE')
+result = course
+print(result)
 
 

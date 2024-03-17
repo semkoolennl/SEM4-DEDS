@@ -27,7 +27,7 @@ from utils import *
 # COUNTRY_CURRENCY_NAME
 
 
-go_sales = load_db('../source/go_sales.sqlite')
+go_sales = load_db('source/go_sales.sqlite')
 
 
 sales_branch = load_table(go_sales, 'SALES_BRANCH').add_prefix('SALES_BRANCH_')
