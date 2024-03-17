@@ -9,7 +9,7 @@ from utils import *
 # COURSE_CODE
 
 
-go_staff = load_db('../source/go_staff.sqlite')
+go_staff = load_db('source/go_staff.sqlite')
 
 
 training = load_table(go_staff, 'TRAINING')
