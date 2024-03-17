@@ -1,68 +1,40 @@
-import pyodbc
 import pandas as pd
+import sqlalchemy
 from exportutils import *
 from table_scripts.utils import *
+from sqlalchemy import create_engine
 
-DB = {
-    'servername': 'localhost,1433',
-    'database': 'master',  # Use 'master' as default system database
-    'username': 'sa',
-    'password': 'SuperPassword123!'
-}
+import pandas as pd
+import numpy as np
 
-# Create the connection string to the master database
-master_conn_str = (
-    'DRIVER={SQL Server};'
-    'SERVER=' + DB['servername'] + ';'
-    'DATABASE=' + DB['database'] + ';'
-    'UID=' + DB['username'] + ';'
-    'PWD=' + DB['password'] + ';'
-)
-
-# Create the connection to the master database
-master_conn = pyodbc.connect(master_conn_str)
-
-# Set AUTOCOMMIT to True to avoid multi-statement transactions
-master_conn.autocommit = True
-
-# Check if the 'greatwarehouse' database exists
-database_name = 'greatwarehouse'
-exists_query = f"SELECT COUNT(*) FROM sys.databases WHERE name = '{database_name}'"
-result = master_conn.execute(exists_query).fetchone()
-
-if result[0] == 0:
-    # Create the 'greatwarehouse' database if it doesn't exist
-    create_database_query = f"CREATE DATABASE {database_name}"
-    master_conn.execute(create_database_query)
-    print(f"Database '{database_name}' created successfully.")
-else:
-    print(f"Database '{database_name}' already exists.")
-
-# Close the connection to the master database
-master_conn.close()
-
-# Create the connection string to the 'greatwarehouse' database
-warehouse_conn_str = (
-    'DRIVER={SQL Server};'
-    'SERVER=' + DB['servername'] + ';'
-    'DATABASE=' + database_name + ';'
-    'UID=' + DB['username'] + ';'
-    'PWD=' + DB['password'] + ';'
-)
-
-# Create the connection to the 'greatwarehouse' database
-warehouse_conn = pyodbc.connect(warehouse_conn_str)
-print(warehouse_conn)
-
-# TODO: exec all scripts, push to DB  (check if exists prior)
-
-scripts = get_scripts()
-for script in scripts:
-    print(f"Executing {script}...")
-    tablename = script.split('_table')[0]
-    dataframe = execute_get_table(script)
-    print(dataframe.dtypes)
-    print_columns(dataframe)
+np.random.seed(0)
+number_of_samples = 10
+frame = pd.DataFrame({
+    'feature1': np.random.random(number_of_samples),
+    'feature2': np.random.random(number_of_samples),
+    'class':    np.random.binomial(2, 0.1, size=number_of_samples),
+    },columns=['feature1','feature2','class'])
 
 
-warehouse_conn.close()
+database_username = 'sa'
+database_password = 'SuperPassword123!'
+database_ip       = 'localhost'
+port              = '1433'
+database_name     = 'datawarehouse'
+
+database_connection = sqlalchemy.create_engine('mysql+mysqlconnector://{0}:{1}@{2}:{3}/{4}'.
+                                               format(database_username, database_password, 
+                                                      database_ip, port ,database_name))
+
+# dit werkt niet eens lol...
+frame.to_sql(con=database_connection, name='table_name_for_df', if_exists='replace')
+
+# scripts = get_scripts()
+# for script in scripts:
+#     print(f'Executing script {script}')
+#     tablename = script.split('_table')[0]
+#     result    = execute_get_table(script)
+
+#     print(f'Pushing to table {tablename} in database')
+#     result.to_sql(con=database_connection, name=tablename, if_exists='replace')
+#     print(f'Successfully pushed {script} to database')
