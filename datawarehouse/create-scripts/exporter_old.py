@@ -1,5 +1,6 @@
 import pyodbc
 import pandas as pd
+import sqlalchemy
 from exportutils import *
 from table_scripts.utils import *
 from sqlalchemy import create_engine
@@ -52,11 +53,12 @@ warehouse_conn_str = (
 )
 
 # Create the connection to the 'greatwarehouse' database
-warehouse_conn = pyodbc.connect(warehouse_conn_str)
+# warehouse_conn = pyodbc.connect(warehouse_conn_str)
 
-warehouse_conn.close()
 
-engine = create_engine('mssql+pyodbc:///?odbc_connect=' + warehouse_conn_str)
+engine = sqlalchemy.create_engine(
+               "mssql+pyodbc://sa:SuperPassword123!@localhost,1433/greatwarehouse?driver=ODBC Driver 17 for SQL Server",
+               echo=False)
 
 scripts = get_scripts()
 for script in scripts:
@@ -69,4 +71,4 @@ for script in scripts:
     result.to_sql(script, engine, index=False)
     print(f'Successfully pushed {script} to database')
 
-
+# warehouse_conn.close()
