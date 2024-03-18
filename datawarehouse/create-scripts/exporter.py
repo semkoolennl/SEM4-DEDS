@@ -56,5 +56,5 @@ for script in scripts:
 
     print(result)
     print(f'Pushing to table {tablename} in database')
-    result.to_sql(script, engine, index=False)
+    result.to_sql(script, engine, index=False, if_exists='replace')
     print(f'Successfully pushed {script} to database')

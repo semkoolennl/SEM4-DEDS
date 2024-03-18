@@ -41,6 +41,7 @@ order_header = order_header[[
     'ORDER_METHOD_CODE',
     'SALES_STAFF_CODE',
     'SALES_BRANCH_CODE',
+    'ORDER_DATE',
 ]].add_prefix('ORDER_HEADER_')
 
 order_details = order_details[[
@@ -77,6 +78,7 @@ order = order.rename(columns={
     'ORDER_HEADER_RETAILER_CONTACT_CODE': 'RETAILER_CONTACT_CODE',
     'ORDER_HEADER_SALES_STAFF_CODE': 'SALES_STAFF_CODE',
     'ORDER_HEADER_SALES_BRANCH_CODE': 'SALES_BRANCH_CODE',
+    'ORDER_HEADER_ORDER_DATE': 'DATE_ORDER_DATE',
 })
 
 # Transform colums to the right type
@@ -93,6 +95,7 @@ order['PRODUCT_PRODUCT_NUMBER'] = order['PRODUCT_PRODUCT_NUMBER'].astype('int64'
 order['RETAILER_SITE_CODE'] = order['RETAILER_SITE_CODE'].astype('int64')
 order['SALES_BRANCH_CODE'] = order['SALES_BRANCH_CODE'].astype('int64')
 order['SALES_STAFF_CODE'] = order['SALES_STAFF_CODE'].astype('int64')
+order['DATE_ORDER_DATE'] = pd.to_datetime(order['DATE_ORDER_DATE'])
 
 # Add new calculated columns
 # ORDER_PROFITABILITY_INDEX = PRODUCT_MARGIN / PRODUCT_PRODUCTION_COST
