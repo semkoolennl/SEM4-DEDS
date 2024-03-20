@@ -7,3 +7,4 @@ tzdata==2024.1
 pyodbc
 sqlalchemy
 mysql-connector
+matplotlib==3.8.3
