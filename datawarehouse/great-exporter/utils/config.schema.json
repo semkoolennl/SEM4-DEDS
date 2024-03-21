@@ -1,0 +1,98 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+      "DESTINATION_DB": {
+        "type": "object",
+        "properties": {
+          "host": {
+            "type": "string"
+          },
+          "port": {
+            "type": "integer"
+          },
+          "database": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "driver": {
+            "type": "string"
+          },
+          "dialect": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "host",
+          "port",
+          "database",
+          "username",
+          "password",
+          "driver",
+          "dialect"
+        ]
+      },
+      "SOURCE_DATABASES": {
+        "type": "array",
+        "items": [
+          {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              },
+              "delimiter": {
+                "type": "string"
+              },
+              "colcount": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "name",
+              "type",
+              "path",
+              "delimiter",
+              "colcount"
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "type",
+              "path"
+            ]
+          }
+        ]
+      }
+    },
+    "required": [
+      "DESTINATION_DB",
+      "SOURCE_DATABASES"
+    ]
+  }
+  
+  
