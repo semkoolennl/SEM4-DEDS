@@ -4,6 +4,7 @@ from exportutils import *
 def actual_expected_plot():
     order_df    = execute_get_table("order_table")
     forecast_df    = execute_get_table("product_forecast_table")
+    sales_target_df = execute_get_table("sales_target_data_table")
 
     # Convert 'DATE_ORDER_DATE' column to datetime
     order_df['DATE_ORDER_DATE'] = pd.to_datetime(order_df['DATE_ORDER_DATE'])
@@ -16,12 +17,17 @@ def actual_expected_plot():
     # Assuming you have already calculated expected orders per month
     expected_orders_per_month = forecast_df.groupby(['YEAR_MONTH_YEAR', 'YEAR_MONTH_MONTH'])['PRODUCT_FORECAST_EXPECTED_VOLUME'].sum()
     expected_orders_per_month.index = expected_orders_per_month.index.map(lambda x: f"{x[0]}-{x[1]:02d}")
+    
+    # Process target data
+    sales_target_df['Month'] = sales_target_df.apply(lambda row: f"{int(row['YEAR_MONTH_YEAR'])}-{int(row['YEAR_MONTH_MONTH']):02d}", axis=1)
+    sales_target_per_month = sales_target_df.groupby('Month')['ORDER_DETAILS_QUANTITY'].sum()
 
     # Plot the data
     plt.figure(figsize=(10, 6))
     plt.plot(expected_orders_per_month, label='Expected Orders')
     plt.plot(orders_per_month, label='Actual Orders')
-    plt.title('Expected vs. Actual Orders per Month')
+    plt.plot(sales_target_per_month, label='Sales Target')
+    plt.title('Expected vs. Actual vs. Sales Target Orders per Month')
     plt.xlabel('Month')
     plt.ylabel('Orders')
     plt.xticks(rotation=45)
@@ -56,10 +62,27 @@ def actual_expected_per_product_plot():
 
 def actual_orders_per_method_plot():
     order_df = execute_get_table("order_table")
-
+    
+    # Define a dictionary mapping sales method codes to their names
+    sales_method_names = {
+        1: 'Fax',
+        2: 'Telephone',
+        3: 'Mail',
+        4: 'E-mail',
+        5: 'Web',
+        7: 'Sales visit',
+        8: 'Special'
+    }
+    
     # Group by sales method and sum the order quantities
     actual_orders_per_method = order_df.groupby('ORDER_METHOD_CODE')['ORDER_DETAILS_QUANTITY'].sum()
-
+    
+    # Filter out any missing sales method codes
+    actual_orders_per_method = actual_orders_per_method.drop(index=6, errors='ignore')
+    
+    # Replace sales method codes with names
+    actual_orders_per_method.index = actual_orders_per_method.index.map(lambda x: sales_method_names.get(x, x))
+    
     # Plot the data
     plt.figure(figsize=(10, 6))
     plt.bar(actual_orders_per_method.index, actual_orders_per_method, label='Total orders')
@@ -139,7 +162,7 @@ def inventory_order_correlation_per_product():
     plt.show()
 
 def main():
-    inventory_order_correlation_per_product()
+    actual_orders_per_method_plot()
 
 if __name__ == '__main__':
     main()
