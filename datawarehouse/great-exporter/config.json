@@ -1,0 +1,43 @@
+{
+    "$schema": "utils/config.schema.json",
+    "DESTINATION_DB": {
+        "host": "localhost",
+        "port": 1433,
+        "database": "test",
+        "username": "sa",
+        "password": "SuperPassword123!",
+        "driver": "ODBC Driver 17 for SQL Server",
+        "dialect": "mssql+pyodbc"
+    },
+    "SOURCE_DATABASES": [
+        {
+            "name": "sales_inventory",
+            "type": "csv",
+            "path": "sources/GO_SALES_INVENTORY_LEVELSDATA.csv",
+            "delimiter": ",",
+            "colcount": 4
+        },
+        {
+            "name": "product_forecast",
+            "type": "csv",
+            "path": "sources/GO_SALES_INVENTORY_LEVELSData.csv",
+            "delimiter": ",",
+            "colcount": 4	
+        },
+        {
+            "name": "go_crm",
+            "type": "sqlite",
+            "path": "sources/go_crm.sqlite"
+        },
+        {
+            "name": "go_sales",
+            "type": "sqlite",
+            "path": "sources/go_sales.sqlite"
+        },
+        {
+            "name": "go_staff",
+            "type": "sqlite",
+            "path": "sources/go_staff.sqlite"
+        }
+    ]
+}
