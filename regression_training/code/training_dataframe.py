@@ -69,7 +69,7 @@ merged_data['SALES_BRANCH_CODE_y'] = merged_data['SALES_BRANCH_CODE_y'].astype('
 
 
 # print(merged_data)
-# print_columns(merged_data)
+print_columns(merged_data)
 
 x = merged_data.drop('QUANTITY', axis = 1)
 y = merged_data.loc[:, ['QUANTITY']]
@@ -96,10 +96,10 @@ y_test_pred_merge = pd.concat([y_test.reset_index()["QUANTITY"], pred_df], axis=
 y_test_pred_merge.loc[y_test_pred_merge['Prediction_Quantity'].notna(), :]
 
 
-plt.scatter(y_test_pred_merge['QUANTITY'], y_test_pred_merge['Prediction_Quantity'])
-plt.xlabel('QUANTITY')
-plt.ylabel('Prediction_Quantity')
-plt.show()
+# plt.scatter(y_test_pred_merge['QUANTITY'], y_test_pred_merge['Prediction_Quantity'])
+# plt.xlabel('QUANTITY')
+# plt.ylabel('Prediction_Quantity')
+# plt.show()
 
 print(mean_squared_error(y_test_pred_merge['QUANTITY'], y_test_pred_merge['Prediction_Quantity']))
 print(mean_absolute_error(y_test_pred_merge['QUANTITY'], y_test_pred_merge['Prediction_Quantity']))

@@ -8,3 +8,4 @@ pyodbc
 sqlalchemy
 mysql-connector
 matplotlib==3.8.3
+scikit-learn
